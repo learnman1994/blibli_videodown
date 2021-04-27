@@ -114,7 +114,7 @@ def down_vd(name_list, url, p):
                           })
         ff.run()
         file_list = os.listdir(d_path)
-        print(file_list)
+        # print(file_list)
         for file in file_list:
             if file == page + '.mp4':
                 os.remove(d_path + '\\' + file)
