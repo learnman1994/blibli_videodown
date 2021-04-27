@@ -6,5 +6,6 @@
 git clone https://github.com/cattypapa/bli_more_part  
 进入仓库  
 cd bli_more_part  
-运行 b_more_part.py程序，按照提示输入  
+运行下面代码，执行程序  
 python b_more_part.py  
+按照程序的提示，逐步进行即可  
