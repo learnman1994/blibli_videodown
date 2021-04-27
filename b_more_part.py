@@ -71,7 +71,7 @@ def down_vd(name_list, url, p):
                           'Chrome/84.0.4147.135 Safari/537.36 '
         }
         vd_name = 'p' + page + '_' + re.sub(r'\W', '', name_list[i])
-        file_name = d_path + '/' + vd_name + '.mp4'
+        file_name = d_path + '\\' + vd_name + '.mp4'
         response = requests.get(url=url1, headers=headers, proxies=get_proxy())
         content = response.text
         print('正在分析下载地址...')
@@ -84,7 +84,7 @@ def down_vd(name_list, url, p):
         chunk_size = 1024
         content_size = int(vd_response.headers['Content-Length'])
         print('开始下载视频,[视频大小]:{size:.2f} MB'.format(size=content_size / chunk_size / 1024))
-        with open(d_path + '/' + page + '.mp4', 'wb') as f:
+        with open(d_path + '\\' + page + '.mp4', 'wb') as f:
             for data in vd_response.iter_content(chunk_size):
                 f.write(data)
                 size += len(data)
@@ -96,7 +96,7 @@ def down_vd(name_list, url, p):
         size = 0
         content_size = int(ad_response.headers['Content-Length'])
         print('开始下载音频,[音频大小]:{size:.2f} MB'.format(size=content_size / chunk_size / 1024))
-        with open(d_path + '/' + page + '.aac', 'wb') as f:
+        with open(d_path + '\\' + page + '.aac', 'wb') as f:
             for data in ad_response.iter_content(chunk_size):
                 f.write(data)
                 size += len(data)
@@ -106,8 +106,8 @@ def down_vd(name_list, url, p):
         print('\n')
         print('准备合并视频...')
         # time.sleep(0.5)
-        ff = ffmpy.FFmpeg(inputs={d_path + '/' + page + '.mp4': None,
-                                  d_path + '/' + page + '.aac': None},
+        ff = ffmpy.FFmpeg(inputs={d_path + '\\' + page + '.mp4': None,
+                                  d_path + '\\' + page + '.aac': None},
                           outputs={
                               file_name: '-vcodec copy -acodec copy -loglevel quiet'
                           })
