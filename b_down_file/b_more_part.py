@@ -17,15 +17,14 @@ def get_proxy():
     html = etree.HTML(proxy_content)
     test_proxy_list = html.xpath('//*[@id="list"]/table/tbody/tr/td[1]/text()')
     # print(test_proxy_list)
-    print('正在获取代理地址...')
+    print('正在获取代理IP,防止封禁真实IP...')
     proxy_list = list()
     for pr in test_proxy_list:
         test_proxy = {'HTTP': 'HTTP://' + pr}
         response = requests.get(url='http://www.baidu.com', headers=proxy_headers, proxies=test_proxy, timeout=6)
         if response.status_code == 200:
             proxy_list.append(test_proxy)
-    proxy = random.choice(proxy_list)
-    return proxy
+    return proxy_list
 
 
 def mk_folder():
@@ -45,23 +44,25 @@ def mk_folder():
     return path
 
 
-def get_names(bv):
+def get_names(bv, proxy_list):
     url = 'http://www.bilibili.com/video/' + bv
     headers = {
         'referer': url,
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/84.0.4147.135 Safari/537.36 '
     }
+    proxy = random.choice(proxy_list)
+    print('正在发起请求，获取视频集数...')
     response = requests.get(url=url, headers=headers)
     pattern = re.compile('"part":"(.*?)"', re.S)
     name_list = pattern.findall(response.text)
     # print(name_list)
     print('一共有%dP视频' % len(name_list))
     p = input('请输入下载p数:')
-    down_vd(name_list, url, p)
+    down_vd(name_list, url, p, proxy)
 
 
-def down_vd(name_list, url, p):
+def down_vd(name_list, url, p, proxy):
     d_path = mk_folder()
     for i in range(int(p)):
         page = str(i + 1)
@@ -73,14 +74,14 @@ def down_vd(name_list, url, p):
         }
         vd_name = 'p' + page + '_' + re.sub(r'\W', '', name_list[i])
         file_name = d_path + '\\' + vd_name + '.mp4'
-        response = requests.get(url=url1, headers=headers, proxies=get_proxy())
+        response = requests.get(url=url1, headers=headers, proxies=proxy)
         content = response.text
         print('正在分析下载地址...')
         vd_pattern = re.compile('"min_buffer_time".*?"baseUrl":"(.*?)"')
         vd_url = vd_pattern.findall(content)[0]
         ad_pattern = re.compile('"audio".*"base_url":"(.*?)"')
         ad_url = ad_pattern.findall(content)[0]
-        vd_response = requests.get(url=vd_url, headers=headers, proxies=get_proxy())
+        vd_response = requests.get(url=vd_url, headers=headers, proxies=proxy)
         size = 0
         chunk_size = 1024
         content_size = int(vd_response.headers['Content-Length'])
@@ -93,7 +94,7 @@ def down_vd(name_list, url, p):
                     '\r' + '[下载进度]:%s%.2f%%' % ('>' * int(size * 50 / content_size), float(size / content_size * 100)),
                     end='')
         print('\n')
-        ad_response = requests.get(url=ad_url, headers=headers, proxies=get_proxy())
+        ad_response = requests.get(url=ad_url, headers=headers, proxies=proxy)
         size = 0
         content_size = int(ad_response.headers['Content-Length'])
         print('开始下载音频,[音频大小]:{size:.2f} MB'.format(size=content_size / chunk_size / 1024))
@@ -127,8 +128,12 @@ def down_vd(name_list, url, p):
 
 def main():
     bv = input('请输入bv号:')
-    get_names(bv)
+    proxy_list = get_proxy()
+    start = time.time()
+    get_names(bv, proxy_list)
+    end = time.time()
     print('全部下载完成了哦')
+    print('下载共耗时%d秒' % (end-start))
 
 
 if __name__ == '__main__':
