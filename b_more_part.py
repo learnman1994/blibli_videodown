@@ -34,6 +34,7 @@ def mk_folder():
     folder1 = input('请输入一级文件夹:')
     folder2 = input('请输入二级文件夹:')
     path = os.path.join(path1, folder1, folder2)
+    os.makedirs(path)
     if not os.path.exists(path):
         os.makedirs(path)
         print('文件夹创建成功')
