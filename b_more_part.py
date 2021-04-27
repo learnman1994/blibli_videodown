@@ -106,8 +106,8 @@ def down_vd(name_list, url, p):
         print('\n')
         print('准备合并视频...')
         time.sleep(0.5)
-        ff = ffmpy.FFmpeg(inputs={page + '.mp4': None,
-                                  page + '.aac': None},
+        ff = ffmpy.FFmpeg(inputs={d_path + '\\' + vd_name + '.mp4': None,
+                                  d_path + '\\' + vd_name + '.aac': None},
                           outputs={
                               file_name: '-vcodec copy -acodec copy -loglevel quiet'
                           })
