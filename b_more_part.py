@@ -84,7 +84,7 @@ def down_vd(name_list, url, p):
         chunk_size = 1024
         content_size = int(vd_response.headers['Content-Length'])
         print('开始下载视频,[视频大小]:{size:.2f} MB'.format(size=content_size / chunk_size / 1024))
-        with open(page + '.mp4', 'wb') as f:
+        with open(d_path + '\\' + vd_name + '.mp4', 'wb') as f:
             for data in vd_response.iter_content(chunk_size):
                 f.write(data)
                 size += len(data)
@@ -96,7 +96,7 @@ def down_vd(name_list, url, p):
         size = 0
         content_size = int(ad_response.headers['Content-Length'])
         print('开始下载音频,[音频大小]:{size:.2f} MB'.format(size=content_size / chunk_size / 1024))
-        with open(page + '.aac', 'wb') as f:
+        with open(d_path + '\\' + vd_name + '.aac', 'wb') as f:
             for data in ad_response.iter_content(chunk_size):
                 f.write(data)
                 size += len(data)
