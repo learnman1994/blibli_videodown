@@ -11,8 +11,8 @@ try:
     from lxml import etree
 except Exception:
     print('请先在终端执行 pip3 install lxml')
-import get_proxy
-import mk_folder
+from . import get_proxy
+from . import mk_folder
 
 
 def get_names(bv, proxy_list):
