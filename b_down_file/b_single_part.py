@@ -6,24 +6,7 @@ try:
     import ffmpy
 except Exception:
     print('请先在终端执行 pip3 install ffmpy')
-
-
-def mk_folder():
-    print('windows用户请在盘符字母后面加英文冒号":"')
-    print('Linux用户请从根目录"/"开始写入')
-    path1 = input('请输入下载盘符(不区分大小写):')
-    folder1 = input('请输入一级文件夹:')
-    folder2 = input('请输入二级文件夹:')
-    path = os.path.join(path1, folder1, folder2)
-    # path = path1 + '/' + folder1 + '/' + folder2
-    if not os.path.exists(path):
-        os.makedirs(path)
-        print('文件夹创建成功')
-        time.sleep(0.5)
-    else:
-        print('文件夹已存在')
-        time.sleep(0.5)
-    return path
+from mk_folder import mk_folder
 
 
 def down_vd(url, headers):
@@ -33,15 +16,18 @@ def down_vd(url, headers):
         content = response.text
         name_pattern = re.compile('h1 title="(.*?)"', re.S)
         name = name_pattern.findall(content)[0]
-        zh_name = re.sub(r'\W', '', name) + '.mp4'
+        seq = (re.sub(r'\W', '', name), 'mp4')
+        suf = '.'
+        # zh_name = re.sub(r'\W', '', name) + '.mp4'
+        zh_name = suf.join(seq)
         print('视频名字为%s' % zh_name)
         vd_pattern = re.compile('"min_buffer_time".*?"baseUrl":"(.*?)"')
         vd_url = vd_pattern.findall(content)[0]
         ad_pattern = re.compile('"audio".*"base_url":"(.*?)"')
         ad_url = ad_pattern.findall(content)[0]
-        vd_file_name = os.path.join(down_path, '1.mp4')
-        ad_file_name = os.path.join(down_path, '2.aac')
-        vd_zh_name = os.path.join(down_path, zh_name)
+        vd_file_name = os.path.join(down_path, '1.mp4').replace('\\', '//')
+        ad_file_name = os.path.join(down_path, '2.aac').replace('\\', '//')
+        vd_zh_name = os.path.join(down_path, zh_name).replace('\\', '//')
         print('正在分析...')
         response1 = requests.get(url=vd_url, headers=headers)
         size = 0
