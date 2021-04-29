@@ -38,8 +38,8 @@ def mk_folder():
     path1 = input('请输入下载盘符(不区分大小写):')
     folder1 = input('请输入一级文件夹:')
     folder2 = input('请输入二级文件夹:')
-    # path = os.path.join(path1, folder1, folder2)
-    path = path1 + '/' + folder1 + '/' + folder2
+    path = os.path.join(path1, folder1, folder2)
+    # path = path1 + '/' + folder1 + '/' + folder2
     if not os.path.exists(path):
         os.makedirs(path)
         print('文件夹创建成功')
@@ -124,9 +124,9 @@ def down_vd(name_list, url, p, proxy):
         # print(file_list)
         for file in file_list:
             if file == page + '.mp4':
-                os.remove(d_path + '\\' + file)
+                os.remove(os.path.join(d_path, file))
             if file == page + '.aac':
-                os.remove(d_path + '\\' + file)
+                os.remove(os.path.join(d_path, file))
         print('视频合并成功~')
         print('*' * 20)
         time.sleep(2)

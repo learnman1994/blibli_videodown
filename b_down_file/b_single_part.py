@@ -13,8 +13,8 @@ def mk_folder():
     path1 = input('请输入下载盘符(不区分大小写):')
     folder1 = input('请输入一级文件夹:')
     folder2 = input('请输入二级文件夹:')
-    # path = os.path.join(path1, folder1, folder2)
-    path = path1 + '/' + folder1 + '/' + folder2
+    path = os.path.join(path1, folder1, folder2)
+    # path = path1 + '/' + folder1 + '/' + folder2
     if not os.path.exists(path):
         os.makedirs(path)
         print('文件夹创建成功')
@@ -80,9 +80,9 @@ def down_vd(url, headers):
         list_disk = os.listdir(down_path)
         for i in list_disk:
             if i == '1.mp4':
-                os.remove(down_path + '/' + i)
+                os.remove(os.path.join(down_path, i))
             if i == '2.aac':
-                os.remove(down_path + '/' + i)
+                os.remove(os.path.join(down_path, i))
         print('下载成功, 3S后关闭窗口')
         time.sleep(3)
     except Exception as e:

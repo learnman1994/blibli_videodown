@@ -6,7 +6,7 @@ def main():
     while True:
         print('*'*50)
         print('欢迎使用B站视频下载工具~')
-        choice_list = ['单P下载输入: 1','多P下载输入: 2', '退出输入: exit']
+        choice_list = ['单P下载输入: 1', '多P下载输入: 2', '退出输入: exit']
         for choice in choice_list:
             print(choice)
         print('*'*50)
