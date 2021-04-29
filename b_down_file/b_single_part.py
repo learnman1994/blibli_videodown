@@ -2,7 +2,10 @@ import requests
 import re
 import os
 import time
-import ffmpy
+try:
+    import ffmpy
+except Exception:
+    print('请先在终端执行 pip3 install ffmpy')
 
 
 def mk_folder():
@@ -89,7 +92,7 @@ def down_vd(url, headers):
 
 
 def main():
-    bv = input('请输入BV号:')
+    bv = input('请输入BV/AV号:')
     url = 'https://www.bilibili.com/video/' + bv
     headers = {
         'origin': 'https://www.bilibili.com',

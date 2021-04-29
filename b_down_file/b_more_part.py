@@ -1,10 +1,16 @@
 import requests
 import re
 import time
-import ffmpy
+try:
+    import ffmpy
+except Exception:
+    print('请先在终端执行 pip3 install ffmpy')
 import os
 import random
-from lxml import etree
+try:
+    from lxml import etree
+except Exception:
+    print('请先在终端执行 pip3 install lxml')
 
 
 def get_proxy():
@@ -127,7 +133,7 @@ def down_vd(name_list, url, p, proxy):
 
 
 def main():
-    bv = input('请输入bv号:')
+    bv = input('请输入bv/av号:')
     proxy_list = get_proxy()
     start = time.time()
     get_names(bv, proxy_list)
