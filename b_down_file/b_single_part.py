@@ -6,7 +6,7 @@ try:
     import ffmpy
 except Exception:
     print('请先在终端执行 pip3 install ffmpy')
-import mk_folder
+from . import mk_folder
 
 
 def down_vd(url, headers):
