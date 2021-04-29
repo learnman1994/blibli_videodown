@@ -11,8 +11,8 @@ try:
     from lxml import etree
 except Exception:
     print('请先在终端执行 pip3 install lxml')
-from get_proxy import get_proxy
-from mk_folder import mk_folder
+import get_proxy
+import mk_folder
 
 
 def get_names(bv, proxy_list):
@@ -34,7 +34,7 @@ def get_names(bv, proxy_list):
 
 
 def down_vd(name_list, url, p, proxy):
-    d_path = mk_folder()
+    d_path = mk_folder.mk_folder()
     for i in range(int(p)):
         page = str(i + 1)
         url1 = url + '?p=' + page
@@ -105,7 +105,7 @@ def down_vd(name_list, url, p, proxy):
 
 def main():
     bv = input('请输入bv/av号:')
-    proxy_list = get_proxy()
+    proxy_list = get_proxy.get_proxy()
     start = time.time()
     get_names(bv, proxy_list)
     end = time.time()

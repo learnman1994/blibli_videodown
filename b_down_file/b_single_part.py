@@ -6,11 +6,11 @@ try:
     import ffmpy
 except Exception:
     print('请先在终端执行 pip3 install ffmpy')
-from mk_folder import mk_folder
+import mk_folder
 
 
 def down_vd(url, headers):
-    down_path = mk_folder()
+    down_path = mk_folder.mk_folder()
     try:
         response = requests.get(url=url, headers=headers)
         content = response.text

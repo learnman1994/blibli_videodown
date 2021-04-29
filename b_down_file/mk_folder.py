@@ -3,7 +3,7 @@ import time
 
 
 def mk_folder():
-    print('windows用户请在盘符字母后面加英文冒号":"')
+    print('windows用户请在盘符字母后面加英文冒号"://"')
     print('Linux用户请从根目录"/"开始写入')
     path1 = input('请输入下载盘符(不区分大小写):')
     folder1 = input('请输入一级文件夹:')
