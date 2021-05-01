@@ -29,14 +29,16 @@ def get_names(bv, proxy_list):
     name_list = pattern.findall(response.text)
     # print(name_list)
     print('一共有%dP视频' % len(name_list))
-    p = input('请输入下载p数:')
-    down_vd(name_list, url, p, proxy)
+    p_start = input('从第几P开始下载:')
+    p_end = input('从第几P结束下载:')
+    down_vd(name_list, url, p_start, p_end, proxy)
 
 
-def down_vd(name_list, url, p, proxy):
+def down_vd(name_list, url, p_start, p_end, proxy):
     d_path = mk_folder.mk_folder()
-    for i in range(int(p)):
-        page = str(i + 1)
+    for i in range(int(p_start), int(p_end)+1):
+        # page = str(i + 1)
+        page = str(i)
         url1 = url + '?p=' + page
         headers = {
             'referer': url1,
@@ -55,8 +57,8 @@ def down_vd(name_list, url, p, proxy):
         vd_url = vd_pattern.findall(content)[0]
         ad_pattern = re.compile('"audio".*"base_url":"(.*?)"')
         ad_url = ad_pattern.findall(content)[0]
-        vd_file_name = os.path.join(d_path, '1.mp4').replace('\\', '//')
-        ad_file_name = os.path.join(d_path, '1.aac').replace('\\', '//')
+        vd_file_name = os.path.join(d_path, 'test.mp4').replace('\\', '//')
+        ad_file_name = os.path.join(d_path, 'test.aac').replace('\\', '//')
         vd_zh_name = os.path.join(d_path, file_name).replace('\\', '//')
         vd_response = requests.get(url=vd_url, headers=headers, proxies=proxy)
         size = 0
@@ -93,11 +95,11 @@ def down_vd(name_list, url, p, proxy):
         ff.run()
         file_list = os.listdir(d_path)
         # print(file_list)
-        for file in file_list:
-            if file == page + '.mp4':
-                os.remove(os.path.join(d_path, file))
-            if file == page + '.aac':
-                os.remove(os.path.join(d_path, file))
+        for f in file_list:
+            if f == 'test.mp4':
+                os.remove(vd_file_name)
+            if f == 'test.aac':
+                os.remove(ad_file_name)
         print('视频合并成功~')
         print('*' * 20)
         time.sleep(2)
