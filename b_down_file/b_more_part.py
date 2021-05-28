@@ -45,7 +45,7 @@ def down_vd(name_list, url, p_start, p_end, proxy):
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                           'Chrome/84.0.4147.135 Safari/537.36 '
         }
-        name = ('P' + page + '_' + re.sub(r'\W', '', name_list[i]), 'mp4')
+        name = ('P' + page + '_' + re.sub(r'\W', '', name_list[i-1]), 'mp4')
         suf = '.'
         vd_name = suf.join(name)
         # file_name = d_path + '\\' + vd_name + '.mp4'
