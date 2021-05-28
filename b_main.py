@@ -1,5 +1,6 @@
 from b_down_file import b_single_part
 from b_down_file import b_more_part
+import time
 
 
 def main():
@@ -18,6 +19,9 @@ def main():
             b_more_part.main()
         elif choice == 'exit':
             break
+        else:
+            print('输入错误，请重新输入...')
+            time.sleep(1.5)
             
 
 if __name__ == '__main__':
