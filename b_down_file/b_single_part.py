@@ -94,8 +94,8 @@ def main():
             'referer': url,
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36'
         }
-        print(url.replace(' ', ''))
-        # down_vd(url, headers, down_path)
+        # print(url.replace(' ', ''))
+        down_vd(url, headers, down_path)
     print('下载成功, 3S后关闭窗口...')
     time.sleep(3)
 
