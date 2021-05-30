@@ -3,7 +3,6 @@ import re
 import os
 import time
 import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 try:
     import ffmpy
 except Exception:
@@ -74,25 +73,29 @@ def down_vd(url, headers, down_path):
         print('下载成功...')
         time.sleep(1.5)
     except Exception as e:
+        print(e)
         print('网络出错')
         print('如果挂了梯子，先关了梯子在运行')
         time.sleep(3)
 
 
 def main():
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     print('支持多个单P视频下载，BV号间隔请用","')
     print('举个例子：BV1Kq4y1j7EK, BV1CA411g7JF, BV1CN411R7DC')
     bv = input('请输入BV/AV号:')
     down_path = mk_folder.mk_folder()
     bv_list = bv.split(',')
+    # print(bv_list)
     for file in bv_list:
-        url = 'http://www.bilibili.com/video/' + file
+        url = 'https://www.bilibili.com/video/' + file.replace(' ', '')
         headers = {
             'origin': 'https://www.bilibili.com',
             'referer': url,
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36'
         }
-        down_vd(url, headers, down_path)
+        print(url.replace(' ', ''))
+        # down_vd(url, headers, down_path)
     print('下载成功, 3S后关闭窗口...')
     time.sleep(3)
 
