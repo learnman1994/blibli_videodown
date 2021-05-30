@@ -84,7 +84,7 @@ def main():
     down_path = mk_folder.mk_folder()
     bv_list = bv.split(',')
     for file in bv_list:
-        url = 'https://www.bilibili.com/video/' + file
+        url = 'http://www.bilibili.com/video/' + file
         headers = {
             'origin': 'https://www.bilibili.com',
             'referer': url,
