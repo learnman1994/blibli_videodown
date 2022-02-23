@@ -21,7 +21,7 @@ def main():
             break
         else:
             print('输入错误，请重新输入...')
-            time.sleep(1.5)
+            time.sleep(2)
             
 
 if __name__ == '__main__':
